@@ -75,10 +75,7 @@ public class Course {
 
     @Override
     public int hashCode() {
-        
-        final int KEY = 52;
-        
-        // simple multiplication...
+        final int KEY = 52;        
         return KEY * getId();
     }
 }

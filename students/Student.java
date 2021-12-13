@@ -1,6 +1,8 @@
 package students;
 
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.HashMap;
 
 public class Student {
     private int id;
@@ -9,6 +11,7 @@ public class Student {
     private int age;
     private String email;
     private ArrayList<Course> courses = new ArrayList<Course>();
+    private Map<Student, Course> grades = new HashMap<Student, Course>();
     static int students_num = 0;
 
     public Student(String firstName, String lastName, int age, String email) {
@@ -71,6 +74,36 @@ public class Student {
             return;
         }
         this.courses.remove(course);
+    }
+
+    @Override
+    public String toString() {
+        return "student " + id + ": " + firstName + " " + lastName + ", " + age + ", " + email;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        }
+        if (other == null) {
+            return false;
+        }
+        if (getClass() != other.getClass()) {
+            return false;
+        }
+        Student other_student = (Student) other;
+        return  this.id == other_student.id &&
+                this.firstName == other_student.firstName &&
+                this.lastName == other_student.lastName &&
+                this.age == other_student.age &&
+                this.email == other_student.email;
+    }
+
+    @Override
+    public int hashCode() {
+        final int KEY = 52;
+        return KEY * getId();
     }
 
 }
