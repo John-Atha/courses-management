@@ -121,6 +121,28 @@ public class Run {
         return "Student with id " + id + " deleted successfully."; 
     }
 
+    public static String addCourse(ArrayList<Course> courses, String[] data) {
+        int id = -1;
+        try {
+            int semester = Integer.parseInt(data[2]);
+            Course course = new Course(data[1], semester);
+            id = course.getId();
+            courses.add(course);
+        }
+        catch (Exception e) {
+            return "Sorry, invalid input, try again.";
+        }
+        return "Course with id '" + id +"' added successfully!!";
+    }
+
+    public static String deleteCourse(ArrayList<Course> courses, int id) {
+        Course course = getOneCourseCore(courses, id);
+        if (course == null) {
+            return "Course with id " + id + " not found."; 
+        }
+        courses.remove(course);
+        return "Course with id " + id + " deleted successfully."; 
+    }
 
     public static String exec(String command, Scanner scanner, ArrayList<Student> students, ArrayList<Course> courses) {
         String help = "Type\n" 
@@ -130,6 +152,8 @@ public class Run {
             +"\t * `course ID` to see the details about the course with the specific ID\n"
             +"\t * `add-student first_name last_name age email` to add a new student to our system.\n"
             +"\t * `delete-student ID` to delete the student with the ID from our system.\n"
+            +"\t * `add-course title semester` to add a new course to our system.\n"
+            +"\t * `delete-course ID` to delete the course with the ID from our system.\n"
             +"\t * `student STUDENT_ID add COURSE_ID` to add the course with COURSE_ID to the student with the STUDENT_ID\n"
             +"\t * `student STUDENT_ID remove COURSE_ID` to remove the course with COURSE_ID from the student with the STUDENT_ID\n"
             +"\t * `exit` to exit";
@@ -149,6 +173,15 @@ public class Run {
                 }
                 command = "delete-student";
             }
+            else if (parts[0].equals("delete-course")) {
+                try {
+                    id1 = Integer.parseInt(parts[1]);
+                }
+                catch (Exception e) {
+                    return "Invalid course id `" + parts[1] + "`.";
+                }
+                command = "delete-course";
+            }
             else if (parts[0].equals("student") || parts[0].equals("course")) {
                 try {
                     id1 = Integer.parseInt(parts[1]);
@@ -160,6 +193,12 @@ public class Run {
             }
             else {
                 return "Invalid command `" + command + "`";
+            }
+        }
+        else if (parts.length == 3) {
+            if (parts[0].equals("add-course")) {
+                command = "add-course";
+                data = parts;
             }
         }
         else if (parts.length == 4) {
@@ -201,6 +240,9 @@ public class Run {
         actions.put("course-deattach", updateCourses(students, courses, id1, id2, "deattach"));
         actions.put("add-student",     addStudent(students, data));
         actions.put("delete-student",  deleteStudent(students, id1));
+        actions.put("add-course",      addCourse(courses, data));
+        actions.put("delete-course",   deleteCourse(courses, id1));
+
 
         if (actions.containsKey(command)) {
             String res = actions.get(command);
