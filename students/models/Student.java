@@ -1,4 +1,4 @@
-package students;
+package students.models;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -11,7 +11,6 @@ public class Student {
     private int age;
     private String email;
     private ArrayList<Course> courses = new ArrayList<Course>();
-    private Map<Student, Course> grades = new HashMap<Student, Course>();
     static int students_num = 0;
 
     public Student(String firstName, String lastName, int age, String email) {
