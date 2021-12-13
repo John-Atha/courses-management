@@ -25,7 +25,6 @@ public class Controllers {
 
         if (parts.length == 2) {
             if (parts[0].equals("delete-student")) {
-                System.out.println("ASKED TO DELETE STUDENT");
                 try {
                     id1 = Integer.parseInt(parts[1]);
                 }
@@ -36,7 +35,6 @@ public class Controllers {
                 command = "delete-student";
             }
             else if (parts[0].equals("delete-course")) {
-                System.out.println("ASKED TO DELETE COURSE");
                 try {
                     id1 = Integer.parseInt(parts[1]);
                 }
