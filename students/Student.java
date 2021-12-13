@@ -2,8 +2,6 @@ package students;
 
 import java.util.ArrayList;
 
-import students.Course;
-
 public class Student {
     private int id;
     private String firstName;
